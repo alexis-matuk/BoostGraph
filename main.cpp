@@ -40,6 +40,12 @@ typedef boost::graph_traits < Graph >::edge_descriptor edge_descriptor;
 
 typedef std::pair<int, int> Edge;
 
+typedef boost::exterior_vertex_property<Graph, float> DistanceProperty;
+
+typedef DistanceProperty::matrix_type DistanceMatrix;
+
+typedef DistanceProperty::matrix_map_type DistanceMatrixMap;
+
 class custom_dfs_visitor : public boost::default_dfs_visitor
 {
 public:
@@ -349,10 +355,6 @@ int main(int argc, const char * argv[]) {
             case 10:{
                 std::map<vertex_descriptor, std::map<vertex_descriptor, float> > matrix;
                 EdgeWeightMap weight_pmap = boost::get(boost::edge_weight, g);
-                
-                typedef boost::exterior_vertex_property<Graph, float> DistanceProperty;
-                typedef DistanceProperty::matrix_type DistanceMatrix;
-                typedef DistanceProperty::matrix_map_type DistanceMatrixMap;
                 
                 DistanceMatrix distances(num_vertices(g));
                 DistanceMatrixMap dm(distances, g);
